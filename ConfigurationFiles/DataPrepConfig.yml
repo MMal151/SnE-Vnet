@@ -1,0 +1,26 @@
+mode: "gen_splits"
+split:
+  # Comma-separated list of input of paths.
+  input_paths: "/home/mmal151/resmed202200021-IMPRESS_data/Mishaim/ATLAS_2_Cleaned"
+  # File extension of input scan.
+  scan_ext: "T1_bet_BC.nii.gz"
+  # File extension of lesion mask.
+  msk_ext: "LESION.nii.gz"
+  type: "balanced"
+  train_ratio: 0.8
+  test_ratio: 0.2
+  valid_ratio: 0.2 # Taken from the training set. Should be < train_ratio / 2.
+  seed: 2023
+  do_patching: True
+  # -- Patching Configurations -- #
+  patch:
+    shape: "(128, 128, 128)"
+    random: False # Generate random patches or ordered patches.
+    stride: 8 # If random patches, stride will be used as total number of patches
+    alw_empty_patches: False # Allow empty patches; only used for training set.
+# -- Only used if type = balanced -- #
+  balanced:
+    bin_range: "0, 100, 1000, 5000, 10000, 100000" #List of ranges for the voxels to be divided into. If empty, bins will be generated.
+    save_ordered_set: True
+    read_from_file: False # If ordered_set.csv is already generated, bins could be read from the file rather than re-generating the bins.
+    visualise_dataset: True

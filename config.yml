@@ -1,0 +1,36 @@
+mode: "train"
+train:
+  alw_parallel_processing: True
+  gpu: "0" # List of GPUs that can be used.
+  prepare_dataset: False
+  loader:
+    csv_path: "DataFiles/"
+  data:
+    input_shape: "(128, 128, 128)" # If patching is applied, then input shape = patch_shape
+    batch_size: 1
+    normalize: True
+    shuffle: True # Shuffle dataset on each epoch, only applicable for training.
+    steps_per_epoch: # If, -1 default value will be used. Default value: len(x) / batch_size
+      train: 200
+      valid: 100
+      test: 100
+  # Possible Values: unet (U-Net 3D), vnet (V-Net)
+  model_type: "vnet"
+  resume_train: True
+  load_path: "" # Load model from this file.
+  save_path: "" # Save model to this naming structure.
+  save_best_only: True
+  # Apply early stopping when training.
+  aply_early_stpng: True
+  epochs: 200
+  # Currently supporting: acc (Accuracy), mean_iou (Mean Intersection over Union), dice-coef (Dice Coefficient),
+  # recall (Recall), and prec (Precision).
+  perf_metrics: "recall, prec, mean_iou, dice_coef"
+# Possible values: adam, sgd, rmsprop, adadelta, adamax, adagrad
+  optimizer: "adam"
+  learning_rate: 0.001
+ # Whether to use learning rate schedular or not. Configurations can be defined in ConfigurationFiles/LearningSchedularConfig
+  aply_lr_sch: False
+  loss: "focal_tversky"
+  # Possible values: leakyrelu, relu, snake, gelu, prelu
+  activation: "prelu"

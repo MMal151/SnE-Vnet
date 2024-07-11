@@ -1,0 +1,14 @@
+output_classes: 1
+dropout: 0.2
+min_filter: 8
+# -- V-Net Specific Configurations --#
+vnet:
+  encoder_blocks: "1,2,3,3"
+  decoder_blocks: "3,3,4"
+  use_transpose: True
+# Use squeeze and excitation block based residual connections, will be used for up-scaling.
+  squeeze_excitation:
+    use_sne: False
+    ratio: 2
+    use_relu: True
+    use_res_con: True
